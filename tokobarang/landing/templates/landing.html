@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="./static/files/favicon.png">
+    <link rel="stylesheet" href="./static/style.css">
+	<link rel="stylesheet" href="./static/font-awesome.css">
+    <title>Toko-Barang</title>
+</head>
+<style>
+	.content .ifr {
+		position: relative;
+		width: 500px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	footer
+    {
+        background: #fff;
+        font-weight: 400;
+        text-align: center;
+        padding: 20px;
+    }
+</style>
+<body>
+    <section>
+        <header style="background: #fff;">
+            <a href="{% url 'landing' %}"><img src="./static/files/logo.png" class="logo" style="margin-top: 10px;"></a>
+            <div class="toggle"></div>
+            <ul class="navigation">
+                <li><a href="{% url 'login' %}" style="color: var(--blue);">Toko-Barang</a></li>
+                <li><span class="themeSwitch"></span></li>
+            </ul>
+        </header>
+
+        <div class="content">
+            <div class="textBox">
+                <h2>Tentang <span>Toko-Barang</span></h2>
+                <p>PT Toko Semua Barang Palugada atau yang lebih dikenal sebagai Toko-Barang merupakan perusahaan atau toko fiktif yang berperan sebagai contoh perusahaan penyedia barang atau perusahaan retail dan memiliki tujuan untuk menjadi bahan atau sumber materi belajar yang dapat dimodifikasi sesuai kebutuhan. Semua produk dan informasi dari Toko-Barang bersifat jelas, sesuai format dan atau standar pada umumnya, serta sepenuhnya fiktif belaka. Apabila terdapat kesamaan atau kemiripan informasi dari Toko-Barang dengan perusahaan atau hal lain yang bersifat non-fiktif merupakan murni kebetulan dan tanpa unsur kesengajaan serta tidak dimaksudkan untuk menyindir atau menyinggung pihak manapun.</p>
+            </div>
+            <div class="imgBox">
+                <img src="./static/files/produk.png" alt="image"><br>
+				<div class="textBox" style="position: absolute; bottom: -100px; font-size: 50%;">
+					<h2>Produk Unggulan:<br><span>Air Mineral</span></h2>
+				</div>
+            </div>
+        </div>
+
+        <ul class="socialMedia">
+            <li><a target="_blank" rel="noopener noreferrer" href="https://mail.google.com/mail/?view=cm&source=mailto&to=toko_barang00@mail.com"><i class="fa fa-envelope" aria-hidden="true"></i></a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://www.instagram.com/toko_barang00/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+            <li><a target="_blank" rel="noopener noreferrer" href="https://wa.me/6280000000000"><i class="fa fa-whatsapp" aria-hidden="true"></i></a></li>
+        </ul>
+		
+		
+    </section>
+	
+	<section>
+		<div class="content">
+            
+            <div class="ifr">
+				<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d3949.7004883877075!2d110.53353807712408!3d-8.131943916153382!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sid!2sid!4v1728980606535!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+			<div class="textBox">
+                <h2>Terhubung Dengan <br><span>Toko-Barang</span></h2>
+                <p>Toko Resmi untuk pemasaran produk Toko-Barang berlokasi di Jalan A, Blok B, Desa C, Kecamatan D, Kabupaten E, Provinsi F.
+				<br>Sedangkan <a target="_blank" rel="noopener noreferrer" href="https://maps.app.goo.gl/Dk75xnZw57apSqgo6" style="margin: 0; padding: 0px 10px; border-radius: 20px;">Toko Cabang Toko-Barang</a> berlokasi di Desa Z, Kecamatan Y, Kabupaten X, Provinsi W.
+				<br>Toko-Barang dapat dihubungi melalui:
+				<br>- WhatsApp: +6280000000000
+				<br>- Instagram: @toko_barang00
+				<br>- Email: toko_barang00@mail.com</p>
+            </div>
+        </div>
+	</section>
+	
+	<footer>
+		<div class="container">
+			<div class="row">
+				<p>Copyright © 2024 Toko-Barang</p>
+			</div>
+		</div>
+	</footer>
+
+    <script src="./static/app.js"></script>
+</body>
+</html>

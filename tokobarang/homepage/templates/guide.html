@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Petunjuk {% endblock title %}
+
+
+{% block content %}
+    
+    {% if not user.is_authenticated  %}
+        <br>
+        <a href="{% url 'home' %}" class="btn btn-secondary">Kembali</a>
+    {% endif %}    
+    
+    <div class="align-middle" style="color: #4c50af; font-style: bold; font-size: 3rem;"><b>Toko-Barang</b></div>
+    <div class="align-middle" style="color: rgb(73, 73, 73)"><b>Aplikasi Web Manajemen Stok Barang</b></div>
+    <br><br>
+
+    <div class="align-middle"> 
+        <h2 style="color:#4c50af"><b>| Tentang |</b></h3> <br>
+            <p>
+                Toko-Barang merupakan aplikasi web manajemen inventori stok/barang gudang.<br>
+                Toko-Barang dapat membantu dalam mengelola dan memantau keluar masuknya stok gudang, serta membuat nota transaksi secara dinamis.<br>
+                Aplikasi Toko-Barang juga dapat berperan membantu menyimpan data/nota riwayat transaksi yang dilakukan.
+            </p>
+        <br><br>
+    </div>
+        <h2 style="color:#4c50af" class="align-middle"><b>| Fitur |</b></h3> <br>
+            <ul style="display:table; margin:0 auto; ">                
+                <li style="color:#494949;">Grafik untuk menampilkan daftar stok yang tersedia</li>
+                <li style="color:#494949;">Manajemen stok yang ada</li>
+                <li style="color:#494949;">Transaksi stok masuk melalui menu pembelian</li>
+                <li style="color:#494949;">Transaksi stok keluar melalui menu penjualan</li>
+                <li style="color:#494949;">Perekaman/penyimpanan setiap transaksi yang dilakukan melalui aplikasi</li>
+                <li style="color:#494949;">Nota/tagihan transaksi dibentuk secara dinamis dan dapat dicetak</li>
+                <li style="color:#494949;">Manajemen Supplier</li>
+            </ul>  
+        <br><br>
+
+{% endblock content %}

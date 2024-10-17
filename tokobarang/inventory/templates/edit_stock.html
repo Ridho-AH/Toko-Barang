@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+
+{% block title %} {{title}} {% endblock title %}
+
+
+{% block content %}
+
+    <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">{{title}}</div> 
+    
+    <br>
+    
+    <form method="post">
+    
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+        
+        <div class="form-group">
+            {{ form.name.errors }}
+            <label for="{{ form.name.id_for_label }}">Nama:</label>
+            {{ form.name }}
+        </div>
+		<div class="form-group">
+            {{ form.grade.errors }}
+            <label for="{{ form.grade.id_for_label }}">Grade:</label>
+            {{ form.grade }}
+        </div>
+        <div class="form-group ">
+            {{ form.good_qty.errors }}
+            <label for="{{ form.good_qty.id_for_label }}">Jumlah Kondisi Baik:</label>
+            {{ form.good_qty }}
+        </div>
+		<div class="form-group ">
+            {{ form.bad_qty.errors }}
+            <label for="{{ form.bad_qty.id_for_label }}">Jumlah Kondisi Busuk:</label>
+            {{ form.bad_qty }}
+        </div>
+
+        <br>
+
+        <div class="align-middle">
+            <button type="submit" class="btn btn-primary">{{ savebtn }}</button>
+            {% if title == "Tambah Jenis Stok Baru" %}
+                <button type="reset" class="btn btn-danger" >Atur Ulang</button>
+            {% endif %}
+            {% if delbtn %}
+                <a href="{% url 'delete-stock' object.pk %}" class="btn  btn-danger"> Hapus Stok </a>
+            {% endif %}
+            <a href="{% url 'inventory' %}" class="btn btn-secondary">Batal</a>
+        </div>
+        
+    </form>
+
+{% endblock content %}

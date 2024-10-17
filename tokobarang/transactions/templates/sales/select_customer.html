@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+
+{% block title %} Penjualan Baru {% endblock title %}
+
+
+{% block content %}
+
+    <div style="color:#575757; font-style: bold; font-size: 3rem; border-bottom: 1px solid white;">Penjualan Baru</div> 
+    
+    <br>
+    
+    <form method="post">
+
+        {% csrf_token %}
+        
+        {% for field in form.visible_fields %}
+            <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="align-middle">
+            <a class="btn btn-secondary" href="{% url 'new-customer' %}">Tambah Pembeli Baru</a>
+			<a href="{% url 'sales-list' %}" class="btn btn-danger">Batal</a>
+			<button type="submit" class="btn btn-primary">Selanjutnya</button>
+        </div>
+        
+    </form>
+
+{% endblock content %}

@@ -1,0 +1,142 @@
+{% extends bill_base %}
+{% load static %}
+
+
+{% block title %} Nomor Nota Pelunasan Hutang: {{ bill.pk }}{% endblock title %}
+
+
+{% block content %}
+
+    <div style="color:#575757; font-style: bold; font-size: 3rem;  border-bottom: 1px solid white;">Nomor Nota Pelunasan Hutang: {{ bill.pk }}</div>
+
+        <div class="bg">
+        
+            <br>
+			<center>
+            <div id="printArea" class="bg">
+
+                <table style="width: 98mm; font-size: 15px;">
+                    <tbody>
+                        
+                        <tr style="text-align: center;">
+                            <td >
+                                <span style="font-size: 350%;">TOKO-BARANG</span> <br>
+								<span style="font-size: 120%; font-weight: bold;">NOTA PELUNASAN HUTANG</span> <br>
+                                Jalan A, Blok B 01, Desa C,<br> Kecamatan D, Kabupaten E, Provinsi F<br>
+                                EMAIL : toko_barang00@mail.com<br>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+							<center>
+                            <table style="width: 94mm;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 50%;">{{ bill.time.date }}</td>
+                                        <td style="width: 50%; text-align: right;">{{ bill.time.time }} WIB</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="width: 50%;">NOMOR NOTA</td>
+                                        <td style="width: 50%; text-align: right;">{{ bill.pk }}</td>
+                                    </tr>
+                                    <tr>
+										<td style="width: 50%;">NAMA PEMBELI</td>
+										<td style="width: 50%; text-align: right;">{{ bill.subject.name }}</td>
+									</tr>
+                                    <tr>
+                                        <td style="width: 50%;">ALAMAT</td>
+										<td style="width: 50%; text-align: right;">{{ bill.subject.address }}</td>
+									</tr>
+                                    <tr>
+                                        <td style="width: 50%;">NPWP </td>
+										<td style="width: 50%; text-align: right;">{{ bill.subject.npwp }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+							</center>
+                            </td>
+                        </tr>
+                       
+                        
+                        <tr>
+                            <td>
+							<center>
+                            <table style="width: 94mm; border-top: 1px solid #000;">
+                                <tbody>
+                                    <tr>
+                                        <td style="width: 30%;">HUTANG </td>
+										<td style="width: 2%;">:</td>
+                                        <td style="text-align: right; border: 0; overflow: hidden;">{{ bill.total }} </td>
+                                    </tr>
+									<tr>
+										<td >BAYAR</td>
+										<td style="width: 2%;">:</td>
+										<td style="text-align: right; border: 0; overflow: hidden;">{{ bill.amount }} </td>
+                                    </tr>
+									<tr>
+                                        <td >SISA HUTANG</td>
+										<td style="width: 2%;">:</td>
+										<td style="text-align: right; border: 0; overflow: hidden;">{{ bill.remain }} </td>
+                                    </tr>
+									<tr>
+                                        <td >KEMBALIAN</td>
+										<td style="width: 2%;">:</td>
+										<td style="text-align: right; border: 0; overflow: hidden;">{{ bill.retur }} </td>
+                                    </tr>
+									<tr>
+                                        <td >STATUS</td>
+										<td style="width: 2%;">:</td>
+										<td style="text-align: right; border: 0; overflow: hidden;">{{ bill.stat }} </td>
+                                    </tr>
+								</tbody>
+                            </table>
+							</center>
+							<center>
+							<table style="width: 94mm; border-top: 1px solid #000; border-bottom: 1px solid #000;">
+								<tbody>
+									<tr>
+										<td style="width: 35%; text-align: center;" rowspan="5" colspan="2">
+                                            <p> <span style="font-weight: bold;">Nomor Rekening <br> Toko-Barang</span> <br>
+                                                Bank G: 111111111111111<br>Bank H: 2222222222<br>Bank I: 3333333333333</p>
+                                        </td>
+									</tr>
+                                </tbody>
+                            </table>
+							</center>
+                            </td>
+                        </tr>
+						
+                        <tr>
+                            <td style="text-align: right; padding-right: 45px; padding-bottom: 10px;">
+                                <span style="font-weight: bold;"> <br><br><br><br> Tanda Tangan</span>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+            </div>
+			</center>
+
+
+        </div>
+
+        <br><br>
+
+        <div class="wrapper">
+            <button class="center btn btn-primary" onclick="printpage('printArea')">Cetak</button>
+            <a href="{% url 'cusdebt-history' %}" class=" btn center btn-secondary">Kembali</a>
+        </div>
+
+    <script>
+		function printpage(divName) {
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+        }       
+	</script>
+
+{% endblock %}

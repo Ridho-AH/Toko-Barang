@@ -1,0 +1,162 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" type="image/png" href="{% static 'files/favicon.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bill.css' %}">
+    
+    <title>Gudang Buah{% block title %}Title Missing{% endblock title %}</title>
+
+</head>
+
+<body class="bg">
+
+    <main id="wrapper">
+	<style>
+	#sideb1 {
+	  width: 250px;
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  height: 100vh;
+	  z-index: 999;
+	  background: #4e7065;
+	  color: #fff;
+	  transition: all 0.3s;
+	  overflow-y: auto;
+	  overflow-x: hidden;
+	}
+	
+	.btn1{
+	  padding: 10px;
+	  font-size: 1.1em;
+	  display: block;
+	  background:#2d4386
+	}
+	
+	.btn1:hover{
+	  color: #608b7d;
+	  background: #fff;
+	}
+	
+	.botleft {
+	  bottom: 0;
+	  float: left; 
+	  min-width: 250px;
+	  max-width: 250px;
+	}
+	</style>
+        <nav id="sideb1" style="background-color:#334d99">
+            
+            <div class="sidebar-header" style="background-color:#3956ac">
+                <a class="navbar-brand titlefont mr-4" href="{% url 'home' %}"><h3>Gudang Buah </h3></a>
+            </div>
+
+            <ul class="list-unstyled sidebar-components" style="background-color:#334d99">
+                {# <p class="sidebar-paragraph">Dummy Heading</p> #}
+                <li>
+                    <a class="sidebar-text sidebar-button" href="{% url 'home' %}"><i class="fas fa-home"></i> Home</a>
+                </li>               
+                <li>
+                    <a href="#inventorySubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-boxes"></i> Gudang</a>
+                    <ul class="collapse list-unstyled" id="inventorySubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'new-stock' %}"><i class="fas fa-dot-circle"></i> Tambah Stok</a> </li>
+						<li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'inventory' %}"><i class="fas fa-dot-circle"></i> Daftar Stok</a> </li>
+						<li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'up-stock' %}"><i class="fas fa-dot-circle"></i> Tambah Riwayat Stok</a> </li>
+						<li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'history' %}"><i class="fas fa-dot-circle"></i> Daftar Riwayat Stok</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#purchaseSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-cash-register"></i> Pembelian</a>
+                    <ul class="collapse list-unstyled" id="purchaseSubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'select-supplier' %}"><i class="fas fa-dot-circle"></i>  Pembelian Stok Baru</a> </li>
+						<li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'purchases-list' %}"><i class="fas fa-dot-circle"></i> Daftar Pembelian</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#saleSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-dollar-sign"></i> Penjualan</a>
+                    <ul class="collapse list-unstyled" id="saleSubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'select-customer' %}"><i class="fas fa-dot-circle"></i> Penjualan Stok Baru</a> </li>
+						<li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'sales-list' %}"><i class="fas fa-dot-circle"></i> Daftar Penjualan</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#supplierSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-dolly-flatbed"></i> Supplier</a>
+                    <ul class="collapse list-unstyled" id="supplierSubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'select-supplier' %}"><i class="fas fa-dot-circle"></i> Tambah Supplier Baru</a> </li>
+						<li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'suppliers-list' %}"><i class="fas fa-dot-circle"></i> Daftar Supplier</a> </li>
+                        <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'supdebt-history' %}"><i class="fas fa-dot-circle"></i> Daftar Pelunasan</a> </li>
+                    </ul>
+                </li>
+				<li>
+                    <a href="#customerSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-address-card"></i> Pembeli</a>
+                    <ul class="collapse list-unstyled" id="customerSubmenu">
+                        <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'select-customer' %}"><i class="fas fa-dot-circle"></i> Tambah Pembeli Baru</a> </li>
+                        <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'customers-list' %}"><i class="fas fa-dot-circle"></i> Daftar Pembeli</a> </li>
+                        <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'cusdebt-history' %}"><i class="fas fa-dot-circle"></i> Daftar Pelunasan</a> </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="sidebar-text sidebar-button" href="{% url 'guide' %}"><i class="fas fa-info-circle"></i> Petunjuk</a>
+                </li>
+
+                <li>
+                    {% if user.is_authenticated %}
+                        <a href="#UserSubmenu" data-toggle="collapse" class="dropdown-toggle sidebar-text right-arrow sidebar-button"><i class="fas fa-user-circle"></i> {{ request.user.username }}</a>
+                        <ul class="collapse list-unstyled" id="UserSubmenu">
+                            {% if request.user.is_superuser %}
+                                <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'admin:index' %}"><i class="fas fa-dot-circle"></i> Halaman Admin</a> </li>
+                            {% endif %}
+                                <li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'landing' %}"><i class="fas fa-dot-circle"></i> Landing Page</a> </li>
+								<li> <a class="sidebar-text sidebar-subitem btn1" href="{% url 'logout' %}"><i class="fas fa-dot-circle"></i> Logout</a> </li>
+                        </ul>
+                    {% else %}
+                        <a href="{% url 'login' %}" class="sidebar-text sidebar-button">Not Logged in</a>
+                    {% endif %}
+                </li>
+
+            </ul>
+
+        </nav>
+    
+        <div id="content" class="bg-white">
+
+            <div class="row">
+                <div class="col-md-12">
+                                    
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}"> {{ message }} </div>
+                        {% endfor %}
+                    {% endif %}
+                    
+                    <div class="container">
+                        {% block content %}{% endblock content %}
+                    </div>
+                    
+                </div>
+            </div>
+            <br>
+
+        </div>
+    
+    </main>    
+
+    <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

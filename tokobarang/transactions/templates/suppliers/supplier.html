@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+  Profil {{ supplier.name }}
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="content-section">
+        <div class="media">
+            <div class="media-body">
+                <h2 style="color:#575757;" class="account-heading">{{ supplier.name }}</h2>
+
+                <div class="row">
+					<div class="col-md-5">
+						<table>
+						  <tr>
+							<th>Jenis Kelamin</th>
+							<td>&nbsp;<b>:</b> {{ supplier.gender }}</td>
+						  </tr>
+						  <tr>
+							<th>Kontak</th>
+							<td>&nbsp;<b>:</b> {{ supplier.phone }}</td>
+						  </tr>
+						  <tr>
+							<th>Email</th>
+							<td>&nbsp;<b>:</b> {{ supplier.email }}</td>
+						  </tr>
+						  <tr>
+							<th>Nomor NPWP</th>
+							<td>&nbsp;<b>:</b> {{ supplier.npwp }}</td>
+						  </tr>
+						</table>
+						<p>
+						</p>
+					</div>
+                    <div class="col-md-5">
+						<table>
+						  <tr>
+							<th colspan="2">Alamat :</th>
+						  </tr>
+						  <tr>
+							<td rowspan="2" colspan="2" style="vertical-align:top;"> {{ supplier.address }}</td>
+							<td style="width:2%; color:white;"> . </td>
+						  </tr>
+						  <tr>
+							<td style="width:2%; color:white;"> . </td>
+						  </tr>
+						  <tr>
+							<th style="width:35%;">Jumlah Hutang :</th>
+							<td style="align:left;">&nbsp; Rp.&nbsp; {{ supplier.t_debt }}</td>
+						  </tr>
+						</table>
+                    </div>
+					<div class="col-md-2">
+						<a href="{% url 'edit-supplier' supplier.pk %}" class="btn btn-secondary" style="float: right;">Ubah Detil</a>
+						{% if supplier.t_debt == 0 %}
+							<a href="{% url 'supdebt-payment' supplier.pk %}" ><button class="btn btn-primary" style="float: right; margin-top: 10px;" disabled>Lunasi Hutang</button></a>
+						{% else %}
+							<a href="{% url 'supdebt-payment' supplier.pk %}" ><button class="btn btn-primary" style="float: right; margin-top: 10px;" >Lunasi Hutang</button></a>
+						{% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <table class="table table-css table-hover table-bordered" style="font-size: 80%;">
+        
+        <br>
+        
+        <thead class="thead-dark align-middle">
+            <tr>
+				<th style="vertical-align:middle" width="16%">Nomor Nota</th>
+                <th style="vertical-align:middle" width="10%">Barang Dibeli</th>
+                <th style="vertical-align:middle" width="10%">Jumlah Pembelian</th>
+                <th style="vertical-align:middle" width="12%">Total Harga (RP.)</th>
+				<th style="vertical-align:middle" width="12%">Pembayaran (RP.)</th>
+				<th style="vertical-align:middle" width="10%">Status</th>
+                <th style="vertical-align:middle" width="10%">Tanggal Pembelian</th>
+                <th style="vertical-align:middle" width="20%">Aksi</th>
+            </tr>
+        </thead>
+      
+        <tbody>
+            {% for purchase in bills %}
+            <tr>
+                <td class="align-middle">{{ purchase.billno }}</td>
+                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.stock.name }}_{{ item.stock.grade }} <br> {% endfor %}</td>
+                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>     
+                <td class="align-middle">{{ purchase.get_total_price }}</td>
+				<td class="align-middle">{% for details in purchase.get_details %}{{ details.paid }}{% endfor %}</td>
+				<td class="align-middle">{% for details in purchase.get_details %}{{ details.stat }}{% endfor %}</td>
+                <td class="align-middle">{{ purchase.time.date }}</td>
+                <td class="align-middle"> <a href="{% url 'purchase-bill' purchase.billno %}" class="btn btn-secondary btn-sm">Detil Nota</a> <a href="{% url 'delete-purchase' purchase.pk %}" class="btn btn-danger btn-sm">Hapus Nota</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div class="align-middle">
+        {% if bills.has_other_pages %}
+
+            {% if bills.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">Awal</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.previous_page_number }}">Sebelumnya</a>
+            {% endif %}
+
+            {% for num in bills.paginator.page_range %}
+                {% if bills.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > bills.number|add:'-3' and num < bills.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if bills.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.next_page_number }}">Selanjutnya</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ bills.paginator.num_pages }}">Akhir</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+</div>
+
+{% endblock content %}

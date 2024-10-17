@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+
+{% block title %} Daftar Riwayat Pelunasan Hutang ke Supplier {% endblock title %}
+
+
+{% block content %}
+    
+    <div class="row" style="color: #4e4e4e; font-style: bold; font-size: 3rem; ">
+        <div class="col-md-8">Daftar Riwayat Pelunasan Hutang ke Supplier</div>
+        <div class="col-md-4">               
+            <div style="float:right;"> <a class="btn btn-primary" href="{% url 'suppliers-list' %}">Daftar Supplier</a> </div>
+        </div>
+    </div>
+    
+    <div style="border-bottom: 1px solid white;"></div>
+    
+    <br>
+
+    <table class="table table-css table-bordered table-hover">
+
+        <form method="get">
+            <div class="input-group search">
+                {% render_field filter.form.name class="form-control textinput" placeholder="Cari berdasarkan nama" %}
+                <div class="input-group-append">
+                   <button type="submit" class="btn btn-blue"> Cari </button>
+                </div>
+            </div>
+        </form>
+
+        <br>
+        
+        <thead class="thead-dark align-middle">
+            <tr>
+                <th style="vertical-align:middle" width="10%">Nomor</th>
+				<th style="vertical-align:middle" width="12%">Nama</th>
+				<th style="vertical-align:middle">Jumlah Hutang</th>
+                <th style="vertical-align:middle">Pembayaran</th>
+				<th style="vertical-align:middle">Sisa Hutang</th>
+				<th style="vertical-align:middle">Kembalian</th>
+				<th style="vertical-align:middle">Status</th>
+				<th style="vertical-align:middle">Waktu Pembayaran</th>
+                <th style="vertical-align:middle">Aksi</th>
+            </tr>
+        </thead>
+                  
+{% if object_list %}
+
+        <tbody>
+            {% for debthistory in object_list %}
+                <tr>
+                    <td class="align-middle">{{ debthistory.pk }}</td>
+					<td class="align-middle">
+                        {{ debthistory.name }}
+                    </td>
+					<td class="align-middle">
+                        {{ debthistory.total }}
+                    </td>
+                    <td class="align-middle">{{ debthistory.amount }}</td>
+					<td class="align-middle">{{ debthistory.remain }}</td>
+					<td class="align-middle">{{ debthistory.retur }}</td>
+					<td class="align-middle">{{ debthistory.stat }}</td>
+					<td class="align-middle">{{ debthistory.time }}</td>
+                    <td class="align-middle">
+                        <a href="{% url 'sup-debt-bill' debthistory.pk %}" class="btn btn-secondary btn-sm" style="width: 60px;"> Detil </a>
+						<a href="{% url 'delete-supdebthistory' debthistory.pk %}" class="btn btn-danger btn-sm" style="width: 60px;"> Hapus </a>
+                    </td>   
+                </tr>
+            {% endfor %}                   
+        </tbody>
+
+    </table>  
+
+    <div class="align-middle">
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">Awal</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Sebelumnya</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Selanjutnya</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Akhir</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+{% else %}
+
+        <tbody></tbody>   
+    </table>
+
+    <br><br><br><br>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Daftar Riwayat Pelunasan Hutang masih kosong. Silahkan menambahkan data pelunasan hutang baru.</div>
+
+{% endif %}
+
+{% endblock content %}

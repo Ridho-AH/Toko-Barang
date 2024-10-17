@@ -1,0 +1,116 @@
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/bootstrap.min.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">    
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}">    
+    
+    <title>Toko-Barang - Login</title>
+
+</head>
+
+<body style="overflow-x:hidden">
+
+<style>
+.btn1{
+  padding: 7px 12px;
+  font-size: 17px;
+  display: inline-block;
+  background:#fff;
+  color: #ff163c;
+  border: 2px solid #ff163c;
+  font-weight: bolder;
+  font-family: "Open Sans", sans-serif;
+  max-width: 120px;
+  border-radius: 8px;
+}
+
+.btn1:hover{
+  color: #fff;
+  background: #ff163c;
+}
+
+.btn1:active{
+  color: #fff;
+  background: #ff163c;
+}
+
+.btn2 {
+  color: #ffffff;
+  background-color: #070db8;
+  font-size: 17px;
+  padding: 7px 12px;
+  font-weight: bolder;
+  transition-duration: 0.2s;
+  display: inline-block;
+  text-decoration: none;
+  font-family: "Open Sans", sans-serif;
+  min-width: 120px;
+  border-radius: 30px;
+}
+
+.btn2:hover,
+.btn2:active {
+  color: #070db8;
+  background-color: transparent;
+  box-shadow: 0 2px 7px #070db8;
+}
+
+</style>
+
+<div class="align-middle titlefont" style="height:12%; background:#3956ac; color: #fff; font-style: bold; font-size: 3rem;">Toko-Barang</div>
+<br>
+
+<div class="row d-flex justify-content-center">
+    <div class="col-md-6">
+        {% if user.is_authenticated %}
+            
+            <br><br>
+            <h2 class="align-middle" style="color: #4c50af; font-style: bold;">Anda sudah Log In, {{ request.user.username }}!</h2>
+            <div class="border-top pt-3 align-middle"> <br>
+                <a class="btn btn2" href="{% url 'home' %}">Kembali ke home</a> <br><br>
+                <a class="btn btn1" href="{% url 'logout' %}">Log Out</a>
+            </div>
+        
+        {% else %}
+
+            <div class="content-section">
+                <form method="POST">
+                    {% csrf_token %}
+                    <fieldset class="form-group">
+                        <div class="align-middle" style="color:#494949;"><legend class="border-bottom mb-4">Login untuk melanjutkan....</legend></div>
+                        {{ form|crispy }}
+                    </fieldset>
+                    <div class="form-group">
+                        <div class="align-middle"> 
+                            <a class="btn btn-secondary btn-lg" href="{% url 'landing' %}" style="width: 110px; margin-right: 10px;">Kembali</a>
+							<button class="btn btn-outline-primary btn-lg" type="submit" style="width: 110px;">Log In</button>
+                            {# <button class="ml-2 btn btn-danger">Keluar</button> #}
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+
+        {% endif %}
+
+    </div>
+</div>
+
+    <script src="{% static 'bootstrap/jquery-3.3.1.slim.min.js' %}"></script>
+    <script src="{% static 'bootstrap/popper.min.js' %}"></script>
+    <script src="{% static 'bootstrap/bootstrap.min.js' %}"></script>
+
+</body>
+
+</html>

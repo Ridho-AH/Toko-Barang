@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% load widget_tweaks %}
+
+
+{% block title %} Daftar Pembelian {% endblock title %}
+
+
+{% block content %}
+    
+    <div class="row" style="color: #575757; font-style: bold; font-size: 3rem;">
+        <div class="col-md-8">Daftar Pembelian</div>
+        <div class="col-md-4">
+            <div style="float:right;"> <a class="btn btn-primary" href="{% url 'select-supplier' %}">Tambah Pembelian Baru</a> </div>
+        </div>
+    </div>
+
+    <br>
+
+    <table class="table table-css table-hover table-bordered" style="font-size: 80%;">
+
+        <thead class="thead-dark align-middle">
+            <tr>
+                <th style="vertical-align:middle" width="10%">Nomor Nota</th>
+                <th style="vertical-align:middle" width="12%">Supplier</th>
+                <th style="vertical-align:middle" width="10%">Barang Dibeli</th>
+                <th style="vertical-align:middle" width="10%">Jumlah Pembelian</th>
+                <th style="vertical-align:middle" width="12%">Total Harga (RP.)</th>
+				<th style="vertical-align:middle" width="12%">Pembayaran (RP.)</th>
+				<th style="vertical-align:middle" width="10%">Status</th>
+                <th style="vertical-align:middle" width="10%">Tanggal Pembelian</th>
+                <th style="vertical-align:middle" width="14%">Aksi</th>
+            </tr>
+        </thead>
+
+{% if bills %}
+
+        <tbody>         
+            {% for purchase in bills %}
+            <tr>
+                <td class="align-middle"> {{ purchase.billno }} </td>
+                <td style="vertical-align: middle; font-size: 110%;"> 
+                    {% if purchase.supplier.is_deleted %}
+                        {{ purchase.supplier }}<br> 
+                    {% else %}
+                        <a href="{% url 'supplier' purchase.supplier.name %}" style="color: #4c50af">{{ purchase.supplier }}</a> <br> 
+                    {% endif %}
+                    <small style="color: #909494">No.Telp : {{ purchase.supplier.phone }}</small> 
+                </td>
+                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.stock.name }}_{{ item.stock.grade }} <br> {% endfor %}</td>
+                <td class="align-middle">{% for item in purchase.get_items_list %} {{ item.quantity }} <br> {% endfor %}</td>     
+                <td class="align-middle">{{ purchase.get_total_price }}</td>
+				<td class="align-middle">{% for details in purchase.get_details %}{{ details.paid }}{% endfor %}</td>
+				<td class="align-middle">{% for details in purchase.get_details %}{{ details.stat }}{% endfor %}</td>
+                <td class="align-middle">{{ purchase.time.date }}</td>
+                <td class="align-middle"> <a href="{% url 'purchase-bill' purchase.billno %}" class="btn btn-secondary btn-sm" style="width: 100px;">Detil Nota</a> <a href="{% url 'delete-purchase' purchase.pk %}" class="btn btn-danger btn-sm" style="width: 100px; margin-top: 5px;">Hapus Nota</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <div class="align-middle">
+        {% if is_paginated %}
+
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-info mb-4" href="?page=1">Awal</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.previous_page_number }}">Sebelumnya</a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if page_obj.number == num %}
+                    <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.next_page_number }}">Selanjutnya</a>
+                <a class="btn btn-outline-info mb-4" href="?page={{ page_obj.paginator.num_pages }}">Akhir</a>
+            {% endif %}
+
+        {% endif %}
+    </div>
+
+{% else %}
+
+        <tbody></tbody>
+    </table>
+
+    <br><br><br><br><br><br><br><br>
+    <div style="color: #575757; font-style: bold; font-size: 1.5rem; text-align: center;">Daftar masih kosong. Silahkan menambahkan pembelian baru.</div>
+
+{% endif %}
+
+{% endblock content %}
